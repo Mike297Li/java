@@ -2,15 +2,15 @@ package main.java.com.example.demo;
 public class InsertionSort {
     void sort(int arr[])
     {
-        for(int pointer=1;pointer<arr.length;pointer++){
-            int currentVal=arr[pointer];
-            int postion=pointer;
-            while(postion>0 && arr[postion-1]>currentVal){
-                arr[postion]=arr[postion-1];
-                postion--;
-            }
-            arr[postion]=currentVal;
-        }
+      for(int pointer=1;pointer<arr.length;pointer++){
+          int position=pointer;
+          int currentVal=arr[pointer];
+          while (position>0 && arr[position-1]>currentVal) {
+              arr[position]=arr[position-1];
+              position--;
+          }
+          arr[position]=currentVal;
+      }
     }
     static void printArray(int arr[])
     {
@@ -20,7 +20,7 @@ public class InsertionSort {
 
     public static void main(String args[])
     {
-        int arr[] = {3, 2,8,11, 1, 5, 6 };
+        int arr[] = {15, 2,3,8, 11, 5, 6 };
 
         InsertionSort ob = new InsertionSort();
         ob.sort(arr);
