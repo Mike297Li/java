@@ -19,7 +19,7 @@ public class BubleSort {
 
     public static void main(String args[])
     {
-        int arr[] = {3, 11, 1,4,5,2,7};
+        int arr[] = {1, 3, 4,2,5,7,11};
 
         BubleSort ob = new BubleSort();
         ob.sort(arr);
