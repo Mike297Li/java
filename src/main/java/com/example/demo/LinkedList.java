@@ -32,20 +32,21 @@ public class LinkedList {
         }
     }
     public static void removeDuplicatesWithoutBuffer2(Node head) {
-        if(head==null) return;
-        Node current=head;
-        while(current!=null){
-             Node runner=current;
-             while (runner.next!=null){
-                 if(runner.next.data==current.data){
-                     runner.next=runner.next.next;
-                 }else {
-                     runner=runner.next;
-                 }
-             }
-            current=current.next;
-        }
-
+       if(head==null) return;
+       Node current=head;
+       // 为什么外圈的循环不用 while(current.next!=null)
+       while (current!=null){
+           Node runner=current;
+           // 为什么runner不会为null?
+           while (runner.next!=null){
+               if(runner.next.data==current.data){
+                   runner.next=runner.next.next;
+               }else {
+                   runner=runner.next;
+               }
+           }
+           current=current.next;
+       }
     }
 
     public static void addTail(int last,Node head){
@@ -100,8 +101,10 @@ public class LinkedList {
             slow = slow.next;
             fast = fast.next;
         }
-
-        // Now slow points to the Kth-to-last node
+        while (fast!=null){
+            fast=fast.next;
+            slow=slow.next;
+        }
         return slow;
     }
 
@@ -127,6 +130,29 @@ public class LinkedList {
         System.out.println();
     }
 
+    // why this method to reverse a linked list?
+
+    public static Node reverseLinkedList(Node head) {
+       Node prev=null;
+       Node current=head;
+       Node next=null;
+       while (current!=null){
+           // save next
+           next=current.next;
+           // reverse
+           current.next=prev;
+           // advance prev & current
+           prev=current;
+           current=next;
+       }
+       return prev;
+    }
+    public static boolean isPalindrom(Node head){
+
+
+        return false;
+    }
+
     public static void main(String[] args) {
 //        Node head = new Node(10);
 //        head.next = new Node(12);
@@ -135,16 +161,18 @@ public class LinkedList {
 //        head.next.next.next.next = new Node(12);
 //        head.next.next.next.next.next = new Node(11);
 //        head.next.next.next.next.next.next = new Node(10);
-//
+
 //        System.out.println("Linked list before removing duplicates:");
 //        printList(head);
 //        //addTail(100,head);
-//        printList(addBeginning(99,head));
-//        removeDuplicatesWithoutBuffer2(head);
+//        //printList(addBeginning(99,head));
+//       // removeDuplicatesWithoutBuffer2(head);
 ////        addMiddle(99,head);
-//        deleteOneNode(12,head);
+//        //deleteOneNode(12,head);
 //        System.out.println("Linked list after removing duplicates:");
-//        printList(head);
+//        printList(reverseLinkedList(head));
+
+        //System.out.println(findKthToLast(head,8).data);
 
         Node head = new Node(1);
         head.next = new Node(2);
@@ -152,14 +180,16 @@ public class LinkedList {
         head.next.next.next = new Node(4);
         head.next.next.next.next = new Node(5);
 
-        int k = 2; // Example: Finding the 2nd-to-last element
-
-        Node result = findKthToLast(head, k);
-        if (result != null) {
-            System.out.println("The " + k + "th-to-last element is: " + result.data);
-        } else {
-            System.out.println("The list doesn't have " + k + " nodes.");
-        }
+        printList(reverseLinkedList(head));
+//
+//        int k = 2; // Example: Finding the 2nd-to-last element
+//
+//        Node result = findKthToLast(head, k);
+//        if (result != null) {
+//            System.out.println("The " + k + "th-to-last element is: " + result.data);
+//        } else {
+//            System.out.println("The list doesn't have " + k + " nodes.");
+//        }
     }
 }
 
