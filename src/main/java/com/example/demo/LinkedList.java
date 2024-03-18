@@ -147,10 +147,100 @@ public class LinkedList {
        }
        return prev;
     }
+
+    // Function to reverse the linked list
+    static Node reverse(Node node) {
+        if(node==null || node.next==null){
+            return node;
+        }
+        Node reversedList=reverse(node.next);
+
+        // Reverse the connections: Current node's next node should point back to the current node
+        node.next.next = node;
+        node.next = null;
+
+        // Return the new head of the reversed list
+        return reversedList;
+    }
+
+
     public static boolean isPalindrom(Node head){
+       if(head==null || head.next==null){
+           return true;
+       }
+       Node current=head;
+       // find length
+        int length=0;
+       while (current!=null){
+           length++;
+           current=current.next;
+       }
+        Node current2=head;
+       // store element in a array
+        int[] arr=new int[length];
+       for(int i=0;i<length;i++){
+           arr[i]=current2.data;
+           current2=current2.next;
+       }
+       // use two pointer
+        int left=0;
+        int right=length-1;
+        for(int i=0;i<length;i++){
+           if(arr[left]!=arr[right]){
+               return false;
+           }
+           left++;
+           right--;
+        }
+        return true;
+    }
 
+    public static boolean isPalindromUsingStack(Node head){
+        Stack<Integer> stack=new Stack();
+        Node current=head;
+        while (current!=null){
+            stack.push(current.data);
+            current=current.next;
+        }
+        while (head!=null){
+            if(head.data!=stack.pop().intValue()){
+                return false;
+            }
+            head=head.next;
+        }
+        return true;
+    }
 
-        return false;
+    public static Node loopDetection(Node head){
+        Node slow = head;
+        Node fast = head;
+
+        // Step 1: Detect cycle
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            // If there is a cycle, the slow and fast pointers will meet
+            if (slow == fast) {
+                break;
+            }
+        }
+
+        // If there is no cycle, return null
+        if (fast == null || fast.next == null) {
+            return null;
+        }
+
+        // Step 2: Find the node at the beginning of the loop
+        // This is based on the principle that the distance from the head of the list to the start of the loop
+        // is the same as the distance from the meeting point to the start of the loop.
+        slow = head;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return slow;
     }
 
     public static void main(String[] args) {
@@ -175,12 +265,21 @@ public class LinkedList {
         //System.out.println(findKthToLast(head,8).data);
 
         Node head = new Node(1);
-        head.next = new Node(2);
-        head.next.next = new Node(3);
-        head.next.next.next = new Node(4);
-        head.next.next.next.next = new Node(5);
+        Node node2=new Node(2);
+        head.next = node2;
+        Node node3=new Node(3);
+        head.next.next = node3;
+        Node node4=new Node(4);
+        head.next.next.next = node4;
+        Node node5=new Node(5);
+        head.next.next.next.next = node5;
+        head.next.next.next.next.next =node2;
 
-        printList(reverseLinkedList(head));
+//
+        //printList(reverseLinkedList(head));
+        System.out.println(loopDetection(head).data);
+//        printList(reverse(head));
+        //System.out.println(isPalindromUsingStack(head));
 //
 //        int k = 2; // Example: Finding the 2nd-to-last element
 //
