@@ -196,7 +196,7 @@ public class LinkedList {
     }
 
     public static boolean isPalindromUsingStack(Node head){
-        Stack<Integer> stack=new Stack();
+        Stack stack=new Stack();
         Node current=head;
         while (current!=null){
             stack.push(current.data);
