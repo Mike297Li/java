@@ -46,6 +46,7 @@ public class MinStack {
         minElem.push(9);
 
         minElem.pop();
+        minElem.push(2);
 
         System.out.println(" Minimum Element from Stack: " + minElem.getMin());
     }
